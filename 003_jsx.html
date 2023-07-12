@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello React!</title>
+    <style>
+        .title {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="./lib/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="./lib/react-dom.development.js"></script>
+    <!-- 虚拟dom和真实dom -->
+    <script type="text/javascript" src="./lib/babel.min.js"></script>
+    <script type="text/babel">/*此处一定要写babel*/
+
+        const myId = 'atsiwa';
+        const myData = 'Hello, jk';
+        const arr = ['Angular', 'React', 'Vue'];
+        // 创建虚拟dom
+        const vDom = (
+            <div>
+                <h2 id={myId} className="title">
+                    <span style={{color:'white'}}>{myData}</span>
+                </h2>
+                <input type="text" />
+                <ul>
+                    <li>Angular</li>
+                    <li>React</li>
+                    <li>Vue</li>
+                </ul>
+                <ul>
+                    {arr.map(item => <li key={item}>{item}</li>)}
+                </ul>
+            </div>
+        )
+        // 渲染虚拟dom到页面
+        ReactDOM.render(vDom, document.getElementById('app'))
+
+        /*
+         *  jsx语法规则
+         * 1.定义虚拟dim时不要写引号
+         * 2.标签中混入js表达式时要用{}
+         * 3.样式的类名指定不要用class，要用className
+         * 4.内联样式要用style={{key:value}}的形式去写
+         * 5.只有一个根标签
+         * 6.标签必须闭合
+         * 7.标签首字母
+         *  (1):若小写字母开头，则将该标签转为html中同名元素，若html中无该标签对应的同名元素，则报错
+         *  (2):若大写字母开头，则react就去渲染对应的组件，若组件没有定义，则报错
+         */
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello React!</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="./lib/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="./lib/react-dom.development.js"></script>
+    <!-- 虚拟dom和真实dom -->
+    <script type="text/javascript" src="./lib/babel.min.js"></script>
+    <script type="text/babel">/*此处 一定要写babel*/
+    //    class Person {}
+    //    class Student extends Person {}
+    //    let s1 = new Student()
+    //    console.log(s1.__proto__ === Student.prototype);
+    //    console.log(Student.prototype.__proto__ === Person.prototype);
+    
+    // 创建类式组件
+    class Demo1 extends React.Component {
+        render() {
+            return (
+                <h2>我是用类定义的组件（适用于【复杂组件】）的定义</h2>
+            )
+        }
+    }
+    // 渲染组件到页面
+    ReactDOM.render(<Demo1/>, document.getElementById('app'))
+    /*
+        执行了ReactDOM.render之后发生了什么？
+        1.React解析组件标签，找到了Demo组件
+        2.发现组件是使用类定义的，随后new出该类的实例，并通过该实例调用到原型上的render方法
+        3.将render返回的虚拟DOM转为真实DOM，随后呈现在页面中
+        
+    */
+    </script>
+</body>
+</html>
+</html>
