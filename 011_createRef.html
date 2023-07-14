@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>createRef</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="./lib/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="./lib/react-dom.development.js"></script>
+    <!-- 虚拟dom和真实dom -->
+    <script type="text/javascript" src="./lib/babel.min.js"></script>
+    <script type="text/babel">/*此处一定要写babel*/
+
+        class TestRefs extends React.Component {
+            /*
+            React.createRef调用后可以返回一个容器，该容器可以存储被ref所标识的节点,
+            该容器是专人专用的
+            */
+            myRef = React.createRef()
+            render() {
+                return (
+                    <div>
+                        {/* <input ref={c => {this.input1 = c;console.log('---', c)}} type="text" placeholder="点击按钮提示数据" /> */}
+                        <input ref={this.myRef} type="text"/><br/>
+                        <button onClick={this.showData}>点我提示左侧的数据</button><br/>
+                    </div>
+                )
+            }
+            showData = () => {
+                console.log(this.myRef);
+                console.log(this.myRef.current.value);
+            }
+        }
+
+        ReactDOM.render(<TestRefs />, document.getElementById('app'))
+    </script>
+</body>
+</html>
+</html>

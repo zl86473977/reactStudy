@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello React!</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="./lib/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="./lib/react-dom.development.js"></script>
+    <!-- 虚拟dom和真实dom -->
+    <script type="text/javascript" src="./lib/babel.min.js"></script>
+    <script type="text/babel">/*此处一定要写babel*/
+
+        class TestRefs extends React.Component {
+            state = {
+                wear: 0
+            }
+            // 当render更新，ref的回调会执行两次，第一次取到的c为null，第二次取到的才是真实dom
+            // 所以内联的ref回调的执行次数是 1 + 2n（不推荐）
+            // 非内联的ref回调执行次数是 1
+            render() {
+                return (
+                    <div>
+                        {/* <input ref={c => {this.input1 = c;console.log('---', c)}} type="text" placeholder="点击按钮提示数据" /> */}
+                        <input ref={this.saveInput} type="text"/><br/>
+                        <button onClick={this.showData}>点我提示左侧的数据</button><br/>
+                        <span>今天穿{this.state.wear}</span><br/>
+                    </div>
+                )
+            }
+            showData = () => {
+                this.setState({
+                    wear: (this.state.wear + 1) % 2
+                })
+            }
+            saveInput = (c) => {
+                this.input1 = c;
+            }
+        }
+
+        ReactDOM.render(<TestRefs />, document.getElementById('app'))
+    </script>
+</body>
+</html>
+</html>

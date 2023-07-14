@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello React!</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="./lib/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="./lib/react-dom.development.js"></script>
+    <!-- 虚拟dom和真实dom -->
+    <script type="text/javascript" src="./lib/babel.min.js"></script>
+    <script type="text/babel">/*此处一定要写babel*/
+
+        class TestRefs extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <input ref="input1" type="text" placeholder="点击按钮提示数据" /><br/>
+                        <button onClick={this.showData}>点我提示左侧的数据</button><br/>
+                        <input ref="input2" onBlur={this.showData2} type="text" placeholder="失去焦点提示数据" /><br/>
+                        <input onBlur={this.showData3} type="text" placeholder="失去焦点提示数据" />
+                    </div>
+                )
+            }
+            showData = () => {
+                console.log('--showData1--');
+                console.dir(this.refs.input1.value);
+            }
+            showData2 = () => {
+                console.log('--showData2--');
+                console.dir(this.refs.input2.value);
+            }
+            showData3 = (event) => {
+                console.log('--showData3--');
+                console.log(event.target.value);
+            }
+        }
+
+        ReactDOM.render(<TestRefs />, document.getElementById('app'))
+    </script>
+</body>
+</html>
+</html>
