@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>state</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="./lib/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="./lib/react-dom.development.js"></script>
+    <!-- 虚拟dom和真实dom -->
+    <script type="text/javascript" src="./lib/babel.min.js"></script>
+    <script type="text/babel">/*此处一定要写babel*/
+
+    class TestState extends React.Component {
+        // 构造器调用1次
+        constructor(props) {
+            super(props)
+            // 初始化状态
+            this.state = { isHot: false }
+            // 解决handleChange中this指向问题
+            this.handleChange = this.handleChange.bind(this)
+            // this.handleChange = () => {
+            //     this.state.isHot = !this.state.isHot
+            // }
+        }
+
+        // render调用 1 + n 次 n是状态更新次数
+        render() {
+            const { isHot } = this.state;
+            return (
+                <div>
+                    <h1 onClick={this.handleChange}>今天天气很{isHot ? '炎热' : '寒冷'}</h1>
+                </div>
+            )
+        }
+
+        // 点击几次调用几次
+        handleChange() {
+            // handleChange放在哪里？-- TestState的原型对象上，供实例使用
+            // 由于handleChange是作为onClick的回调，所以不是通过实例调用的，是直接调用
+            // 类中的方法默认开启了局部的严格模式，所以handleChange中的this为undefined
+
+            // 状态state不可直接更改，要借助内置的API去更改
+            // this.state.isHot = !this.state.isHot
+            // this.state = {
+            //     isHot: !this.state.isHot
+            // }
+            // 状态必须通过setState进行修改
+            this.setState({
+                isHot: !this.state.isHot
+            })
+        }
+    }
+
+    ReactDOM.render(<TestState/>, document.getElementById('app'))
+    </script>
+</body>
+</html>
+</html>

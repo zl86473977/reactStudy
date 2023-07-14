@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello React!</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <div id="app1"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="./lib/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作dom -->
+    <script type="text/javascript" src="./lib/react-dom.development.js"></script>
+    <!-- 虚拟dom和真实dom -->
+    <script type="text/javascript" src="./lib/babel.min.js"></script>
+    <!-- 引入prop-types，用于对组件标签属性进行限制 -->
+    <script type="text/javascript" src="./lib/prop-types.js"></script>
+
+    <script type="text/babel">/*此处一定要写babel*/
+        class Person extends React.Component {
+            // 对标签属性进行类型、必要性的限制
+            static propTypes = {
+                name: PropTypes.string.isRequired,
+                sex: PropTypes.string,
+                age: PropTypes.number,
+                speak: PropTypes.func
+            }
+            // 设置默认标签属性值
+            static defaultProps = {
+                sex: '不男不女',
+                age: 18
+            }
+
+            render() {
+                const {name, sex, age} = this.props
+                // this.props.name = 'kkk' 此行代码会报错，因为props是只读的
+                return (
+                    <ul>
+                        <li>姓名：{name}</li>
+                        <li>性别：{sex}</li>
+                        <li>年龄：{age + 1}</li>
+                    </ul>
+                )
+            }
+        }
+        ReactDOM.render(<Person name="kkk" />, document.getElementById('app'))
+
+        const p = { name: '朱芳', age: 18, sex: '女'}
+        ReactDOM.render(<Person {...p}/>, document.getElementById('app1'))
+
+    </script>
+</body>
+</html>
+</html>
