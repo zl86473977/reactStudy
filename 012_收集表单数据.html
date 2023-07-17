@@ -18,17 +18,54 @@
     <!-- 虚拟dom和真实dom -->
     <script type="text/javascript" src="./lib/babel.min.js"></script>
     <script type="text/babel">/*此处一定要写babel*/
+        // 受控组件
         class Login extends React.Component {
+            // 初始化状态
+            state = {
+                username: '',
+                password: ''
+            }
+            // 保存用户名到状态中
+            saveUsername = (event) => {
+                this.setState({username: event.target.value})
+            }
+            // 保存密码到状态中
+            savePassword = (event) => {
+                this.setState({password: event.target.value})
+            }
+            handleSubmit = (event) => {
+                event.preventDefault()
+                const { username, password } = this.state;
+                alert(username, password)
+            }
             render() {
                 return (
-                    <form action="http://www.example.com">
-                        用户名：<input type="text" name="username"/><br/>
-                        密码：<input type="password" name="password"/><br/>
+                    <form onSubmit={this.handleSubmit}>
+                        用户名：<input onChange={this.saveUsername} type="text" name="username"/><br/>
+                        密码：<input  onChange={this.savePassword} ref={c => this.password = c} type="password" name="password"/><br/>
                         <button>登录</button>
                     </form>
                 )
             }
         }
+
+        // 非受控组件
+        // class Login extends React.Component {
+        //     handleSubmit = (event) => {
+        //         event.preventDefault()
+        //         const { username, password } = this;
+        //         alert(username.value, password.value)
+        //     }
+        //     render() {
+        //         return (
+        //             <form onSubmit={this.handleSubmit}>
+        //                 用户名：<input ref={c => this.username = c} type="text" name="username"/><br/>
+        //                 密码：<input ref={c => this.password = c} type="password" name="password"/><br/>
+        //                 <button>登录</button>
+        //             </form>
+        //         )
+        //     }
+        // }
         
         ReactDOM.render(<Login />, document.getElementById('app'))
     </script>
