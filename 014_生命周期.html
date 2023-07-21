@@ -26,13 +26,19 @@
             }
             // 组件挂完毕
             componentDidMount() {
-                setInterval(() => {
-                    let {opacity} = this
+                this.timer = setInterval(() => {
+                    let {opacity} = this.state
                     opacity -= 0.1
                     if(opacity <= 0) opacity = 1
                     this.setState({ opacity })
-                })
+                }, 200)
             }
+            // 组件降要卸载
+            componentWillUnmount() {
+                // 清除定时器
+                clearInterval(this.timer)
+            }
+            
             // 初始化渲染、状态更新之后
             render() {
                 
